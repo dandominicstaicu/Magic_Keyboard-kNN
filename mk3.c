@@ -125,3 +125,85 @@ int main(void)
 	//free all just before return 0
 	return 0;
 }
+
+
+
+
+// char *append(char *slice, char part)
+// {
+// 	char *str = malloc(sizeof(char) * (strlen(slice) + 2));
+
+// 	int i = 0;
+// 	while (slice[i] != '\0') {
+// 		str[i] = slice[i];
+// 		i++;
+// 	}
+
+// 	str[i++] = part;
+// 	str[i] = '\0';
+
+// 	return str;
+// }
+
+// void print(trie *node_trie, char *slice)
+// {
+// 	if (node_trie == NULL)
+// 		return;
+
+// 	if (node_trie->isEndOfWord)
+// 		printf("%s\n", slice);
+
+// 	for (int i = 0; i < ALPHABET_SIZE; ++i) {
+// 		if (node_trie->subtrie[i] != NULL)
+// 			print(node_trie->subtrie[i], append(slice, i + 97));
+// 	}
+// }
+
+// void autocomplete(trie *node_trie, char *prefix)
+// {
+// 	int len = strlen(prefix);
+// 	for (int i = 0; i < len; ++i)
+// 		node_trie = node_trie->subtrie[prefix[i] % 97];
+
+// 	print(node_trie, prefix);
+// }
+
+
+
+
+
+
+	// char word1[] = "hello";
+	// char word2[] = "world";
+	// char word3[] = "hell";
+	// char word4[] = "help";
+	// char word5[] = "he";
+
+	// trie_insert(&root, word1);
+	// trie_insert(&root, word2);
+	// trie_insert(&root, word3);
+	// trie_insert(&root, word4);
+	// trie_insert(&root, word5);
+
+	// char input1[] = "he";
+	// char input2[] = "hel";
+	// char input3[] = "help";
+	// char input4[] = "hello";
+	// char input5[] = "helloo";
+
+	// printf (">> ");
+	// autocomplete (&root, input1);
+
+	// printf (">> ");
+	// autocomplete (&root, input2);
+
+	// printf (">> ");
+	// autocomplete (&root, input3);
+
+	// printf (">> ");
+	// autocomplete (&root, input4);
+
+	// printf (">> ");
+	// autocomplete (&root, input5);
+
+	// in case switch fails and memory has to be free'd

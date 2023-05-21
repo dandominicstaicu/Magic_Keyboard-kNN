@@ -10,7 +10,8 @@
 typedef struct trie trie;
 struct trie {
 	trie *subtrie[ALPHABET_SIZE];
-	int isEndOfWord;
+	int is_end_of_word;
+	int freq;
 };
 
 int hash_command(char *command)
@@ -42,14 +43,14 @@ void trie_insert(trie *node_trie, char *word)
 
 		if (current	== NULL) {
 			current = (trie *)malloc(sizeof(trie));
-			current->isEndOfWord = 0;
+			current->is_end_of_word = 0;
 
 			for (int j = 0; j < ALPHABET_SIZE; ++j)
 				current->subtrie[j] = NULL;
 		}
 
 		if (i + 1 == len)
-			current->isEndOfWord = 1;
+			current->is_end_of_word = 1;
 
 		node_trie->subtrie[word[i] % 97] = current;
 		node_trie = node_trie->subtrie[word[i] % 97];
@@ -58,43 +59,82 @@ void trie_insert(trie *node_trie, char *word)
 	node_trie = root;
 }
 
-char *append(char *slice, char part)
+void trie_remove(trie *root, char *word)
 {
-	char *str = malloc(sizeof(char) * (strlen(slice) + 2));
+	int len = strlen(word);
+	trie *node = root;
+	trie *path[WORD_LEN];
 
-	int i = 0;
-	while (slice[i] != '\0') {
-		str[i] = slice[i];
-		i++;
+	// initialize path
+	for (int level = 0; level < len; ++level)
+		path[level] = NULL;
+	
+	// check if word exists and get the path from root to the last char of word
+	for (int level = 0; level < len; ++level) {
+		if (!node->subtrie[word[level] - 'a'])
+			return; // word doesn't exist, do nothing
+
+		path[level] = node;
+		node = node->subtrie[word[level] - 'a'];
 	}
 
-	str[i++] = part;
-	str[i] = '\0';
-
-	return str;
-}
-
-void print(trie *node_trie, char *slice)
-{
-	if (node_trie == NULL)
+	// word is found, but it's not in the tire; do nothing
+	if (node != NULL && node->is_end_of_word == 0)
 		return;
 
-	if (node_trie->isEndOfWord)
-		printf("%s\n", slice);
+	// word is found and it's in the trie; remove it; mark it as not end of word
+	node->is_end_of_word = 0;
 
-	for (int i = 0; i < ALPHABET_SIZE; ++i) {
-		if (node_trie->subtrie[i] != NULL)
-			print(node_trie->subtrie[i], append(slice, i + 97));
+	// if it is a non leaf node, do nothing, return
+	for (int i = 0; i < ALPHABET_SIZE; ++i)
+		if (node->subtrie[i] != NULL)
+			return;
+
+	// if it's a leaf, start from the deepest node and delete backwards
+	for (int level = len - 1; level >= 0; --level) {
+		trie *parent = path[level];
+		if (parent != NULL) {
+			parent->subtrie[word[level] - 'a'] = NULL;
+			free(node);
+			node = parent;
+		
+		// if parent is a non leaf node, stop
+		for (int i = 0; i < ALPHABET_SIZE; ++i)
+			if (parent->subtrie[i] != NULL)
+				return;
+		}
 	}
 }
 
-void autocomplete(trie *node_trie, char *prefix)
+void traverse_with_limit(trie *node, char *word, char *cur_word, int index, int k, int cur_dist)
 {
-	int len = strlen(prefix);
-	for (int i = 0; i < len; ++i)
-		node_trie = node_trie->subtrie[prefix[i] % 97];
+	// if we reached the end of the word, check if the current word is valid
+	if (cur_dist > k)
+		return;
+	
+	// if we reached the end of the word, check if the current word is valid
+	if (node->is_end_of_word && cur_dist <= k)
+		printf("%s\n", cur_word);
 
-	print(node_trie, prefix);
+	
+	for (int i = 0; i < ALPHABET_SIZE; ++i) {
+		if (node->subtrie[i] != NULL) {
+			char next_word[WORD_LEN];
+			strncpy(next_word, cur_word, WORD_LEN);
+			next_word[index] = i + 'a';
+			next_word[index + 1] = '\0';
+
+			int next_dist = cur_dist;
+			if (index < strlen(word)) {
+				if (word[index] != next_word[index])
+					next_dist++;
+			} else {
+				next_dist++;
+			}
+
+			traverse_with_limit(node->subtrie[i], word, next_word, index + 1, k, next_dist);
+		}
+	}
 }
 
 // save the word and increment it's frequency
@@ -103,7 +143,7 @@ void command_insert(trie *root)
 	char word[WORD_LEN];
 	scanf("%s", word);
 
-	trie_insert(&root, word);
+	trie_insert(root, word);
 }
 
 // read words from a given file and insert them into the trie
@@ -121,7 +161,7 @@ void command_load(trie *root)
 
 	char word[WORD_LEN];
 	while (fscanf(file, "%s", word) != EOF)
-		trie_insert(&root, word);
+		trie_insert(root, word);
 
 	fclose(file);
 }
@@ -133,7 +173,7 @@ void command_remove(trie *root)
 	char word[WORD_LEN];
 	scanf("%s", word);
 
-	//TODO
+	trie_remove(root, word);
 }
 
 // all words that can be obtained by changing at most k characters
@@ -146,7 +186,7 @@ void command_autocorrect(trie *root)
 	int k; // number of characters that can be changed
 	scanf("%d", &k);
 
-	//TODO
+	traverse_with_limit(root, word, "", 0, k, 0);
 }
 
 // all words that have the given prefix and the given criterion
@@ -155,35 +195,38 @@ void command_autocomplete(trie *root)
 	char prefix[WORD_LEN];
 	scanf("%s", prefix);
 
-	short crit = 0;
+	int crit = 0;
 	scanf("%d", &crit);
 
 	switch (crit){
 	// the smalles lexicographical word with the given prefix 
 	case 1:
-		
+		//TODO
 		break;
 	
 	// the shortest word with the given prefix
 	case 2:
-
+		//TODO
 		break;
 	
 	// the most frequently used word with the given prefix (if tie, the smallest
 	// lexicographical word is returned)
 	case 3:
-
+		//TODO
 		break;
 
 	// all of the above
 	case 0:
-
+		//TODO
 		break;
 	
 	default:
 		fprintf(stderr, "Invalid criterion\n");
 		break;
 	}
+
+	//if word doesn't exist, print "No words found"
+	// in case of criterion 0, "No words found" can be printed multiple times
 
 }
 
@@ -196,7 +239,7 @@ void command_exit(trie *root)
 int main(void)
 {
 	trie root;
-	root.isEndOfWord = 0;
+	root.is_end_of_word = 0;
 
 	for (int i = 0; i < ALPHABET_SIZE; i++)
 		root.subtrie[i] = NULL;
@@ -232,40 +275,6 @@ int main(void)
 		scanf("%s", command);
 	}
 
-	// char word1[] = "hello";
-	// char word2[] = "world";
-	// char word3[] = "hell";
-	// char word4[] = "help";
-	// char word5[] = "he";
-
-	// trie_insert(&root, word1);
-	// trie_insert(&root, word2);
-	// trie_insert(&root, word3);
-	// trie_insert(&root, word4);
-	// trie_insert(&root, word5);
-
-	// char input1[] = "he";
-	// char input2[] = "hel";
-	// char input3[] = "help";
-	// char input4[] = "hello";
-	// char input5[] = "helloo";
-
-	// printf (">> ");
-	// autocomplete (&root, input1);
-
-	// printf (">> ");
-	// autocomplete (&root, input2);
-
-	// printf (">> ");
-	// autocomplete (&root, input3);
-
-	// printf (">> ");
-	// autocomplete (&root, input4);
-
-	// printf (">> ");
-	// autocomplete (&root, input5);
-
-	// in case switch fails and memory has to be free'd
 	command_exit(&root);
 	return 0;
 }

@@ -11,7 +11,7 @@
         "name": "kNN 1",
         "status": "0",
         "log": "",
-        "time_normal": 0.000442475,
+        "time_normal": 0.000424541,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -21,7 +21,7 @@
         "name": "kNN 2",
         "status": "0",
         "log": "",
-        "time_normal": 0.000369933,
+        "time_normal": 0.000221087,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -31,7 +31,7 @@
         "name": "kNN 3",
         "status": "0",
         "log": "",
-        "time_normal": 0.000295508,
+        "time_normal": 0.000394665,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -41,7 +41,7 @@
         "name": "kNN 4",
         "status": "0",
         "log": "",
-        "time_normal": 0.000135505,
+        "time_normal": 0.000433188,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -51,7 +51,7 @@
         "name": "kNN 5",
         "status": "0",
         "log": "",
-        "time_normal": 0.000142538,
+        "time_normal": 0.000226448,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -61,7 +61,7 @@
         "name": "kNN 6",
         "status": "0",
         "log": "",
-        "time_normal": 0.000139082,
+        "time_normal": 0.000219364,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -71,7 +71,7 @@
         "name": "kNN 7",
         "status": "0",
         "log": "",
-        "time_normal": 0.000128461,
+        "time_normal": 0.000161935,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -81,7 +81,7 @@
         "name": "kNN 8",
         "status": "0",
         "log": "",
-        "time_normal": 0.000320947,
+        "time_normal": 0.000355401,
         "time_valgrind": 0.0,
         "timeout": 100000,
         "test_score": 5
@@ -91,7 +91,7 @@
         "name": "kNN 9",
         "status": "0",
         "log": "",
-        "time_normal": 0.00024567,
+        "time_normal": 0.00101741,
         "time_valgrind": 0.0,
         "timeout": 300000,
         "test_score": 5
@@ -101,7 +101,7 @@
         "name": "kNN 10",
         "status": "0",
         "log": "",
-        "time_normal": 0.000344995,
+        "time_normal": 0.001116988,
         "time_valgrind": 0.0,
         "timeout": 500000,
         "test_score": 5
@@ -111,9 +111,9 @@
       {
         "id": 0,
         "name": "MK 1",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000355956,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.236853155,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -121,9 +121,9 @@
       {
         "id": 1,
         "name": "MK 2",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000152307,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.096230631,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -131,9 +131,9 @@
       {
         "id": 2,
         "name": "MK 3",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000325526,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.114492468,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -141,9 +141,9 @@
       {
         "id": 3,
         "name": "MK 4",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000297962,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.13868128,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -151,9 +151,9 @@
       {
         "id": 4,
         "name": "MK 5",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000580605,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.211121992,
         "time_valgrind": 0.0,
         "timeout": 30000,
         "test_score": 5
@@ -161,9 +161,9 @@
       {
         "id": 5,
         "name": "MK 6",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000750427,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.135190452,
         "time_valgrind": 0.0,
         "timeout": 40000,
         "test_score": 5
@@ -171,9 +171,9 @@
       {
         "id": 6,
         "name": "MK 7",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000474057,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.265014596,
         "time_valgrind": 0.0,
         "timeout": 40000,
         "test_score": 5
@@ -181,9 +181,9 @@
       {
         "id": 7,
         "name": "MK 8",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000339614,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.15870918,
         "time_valgrind": 0.0,
         "timeout": 45000,
         "test_score": 5
@@ -191,9 +191,9 @@
       {
         "id": 8,
         "name": "MK 9",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000291089,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.182474233,
         "time_valgrind": 0.0,
         "timeout": 60000,
         "test_score": 5
@@ -201,9 +201,9 @@
       {
         "id": 9,
         "name": "MK 10",
-        "status": "0",
-        "log": "",
-        "time_normal": 0.000638167,
+        "status": "CRASHED",
+        "log": "11 (SIGSEGV) (core dumped)",
+        "time_normal": 0.104340488,
         "time_valgrind": 0.0,
         "timeout": 150000,
         "test_score": 5
