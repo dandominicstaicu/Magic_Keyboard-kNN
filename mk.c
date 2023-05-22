@@ -253,7 +253,7 @@ void command_load(trie *root)
 	FILE *file = fopen(filename, "rt");
 
 	if (file == NULL) {
-		fprintf(stderr, "File not found\n");
+		// fprintf(stderr, "File not found\n");
 		return;
 	}
 
@@ -299,7 +299,7 @@ void command_autocomplete(trie *root)
 	trie_node_pair pair = prefix_node(root, prefix);
 
 	if (pair.node == NULL) {
-		fprintf(stderr, "No words found\n");
+		printf("No words found\n");
 		return;
 	}
 
@@ -348,7 +348,7 @@ void command_autocomplete(trie *root)
 		break;
 	}
 	default:
-		fprintf(stderr, "Invalid criterion\n");
+		// fprintf(stderr, "Invalid criterion\n");
 		break;
 	}
 
@@ -397,7 +397,7 @@ int main(void)
 			command_exit(&root);
 			return 0;
 		default:
-			fprintf(stderr, "Invalid command\n");
+			// fprintf(stderr, "Invalid command\n");
 			break;
 		}
 
