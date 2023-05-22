@@ -35,11 +35,11 @@ trie_node_pair prefix_node(trie *root, char *prefix)
 	return (trie_node_pair){node, len};
 }
 
-void traverse_lex(trie *node, char *prefix, char *cur_word, int index)
+int traverse_lex(trie *node, char *prefix, char *cur_word, int index)
 {
 	if (node->is_end_of_word) {
 		printf("%s\n", cur_word);
-		return;
+		return 1;
 	}
 
 	for (int i = 0; i < ALPHABET_SIZE; ++i) {
@@ -50,13 +50,14 @@ void traverse_lex(trie *node, char *prefix, char *cur_word, int index)
 			next_word[index] = 'a' + i;
 			next_word[index + 1] = '\0';
 
-			traverse_lex(node->subtrie[i], prefix, next_word, index + 1);
-			return;
+			return traverse_lex(node->subtrie[i], prefix, next_word, index + 1);
 		}
 	}
+	
+	return 0;
 }
 
-void traverse_short(trie *node, char *prefix, int index) {
+int traverse_short(trie *node, char *prefix, int index) {
     trie_node_pair queue[WORD_LEN * ALPHABET_SIZE];
     char queue_words[WORD_LEN * ALPHABET_SIZE][WORD_LEN];
     int front = 0, back = 0;
@@ -75,7 +76,7 @@ void traverse_short(trie *node, char *prefix, int index) {
 
         if (current_node->is_end_of_word) {
             printf("%s\n", cur_word);
-            return;
+            return 1;
         }
 
         for (int i = 0; i < ALPHABET_SIZE; ++i) {
@@ -91,6 +92,7 @@ void traverse_short(trie *node, char *prefix, int index) {
             }
         }
     }
+    return 0;
 }
 
 
@@ -206,6 +208,21 @@ void trie_remove(trie *root, char *word)
 	}
 }
 
+void trie_free(trie *node) {
+    // Base case: NULL node
+    if (node == NULL) {
+        return;
+    }
+
+    // Recursive case: visit all children
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
+        trie_free(node->subtrie[i]);
+    }
+
+    // Now that all children are free, free the node itself
+    free(node);
+}
+
 void traverse_with_limit(trie* node, char* word, char* cur_word, int index, int k, int cur_dist) {
     int word_len = strlen(word);
 	if (index > word_len)
@@ -306,15 +323,17 @@ void command_autocomplete(trie *root)
 	char cur_word[WORD_LEN];
 	strncpy(cur_word, prefix, WORD_LEN);
 
-	switch (crit){
+	switch (crit) {
 	// the smalles lexicographical word with the given prefix 
 	case 1: {
-		traverse_lex(pair.node, prefix, cur_word, pair.index);
+		if (!traverse_lex(pair.node, prefix, cur_word, pair.index))
+			printf("No words found\n");
 		break;
 	}
 	// the shortest word with the given prefix
 	case 2: {
-		traverse_short(pair.node, cur_word, pair.index);
+		if (!traverse_short(pair.node, cur_word, pair.index))
+			printf("No words found\n");
 		break;
 	}
 	// the most frequently used word with the given prefix (if tie, the smallest
@@ -333,8 +352,11 @@ void command_autocomplete(trie *root)
 	}
 	// all of the above
 	case 0: {
-		traverse_lex(pair.node, prefix, cur_word, pair.index);
-        traverse_short(pair.node, cur_word, pair.index);
+		if (!traverse_lex(pair.node, prefix, cur_word, pair.index))
+			printf("No words found\n");
+
+        if (!traverse_short(pair.node, cur_word, pair.index))
+			printf("No words found\n");
         
 		int max_freq = -1;
         char max_word[WORD_LEN];
@@ -360,41 +382,40 @@ void command_autocomplete(trie *root)
 // free the memory
 void command_exit(trie *root)
 {
-	//TODO
+	trie_free(root);
 }
 
 int main(void)
 {
-	trie root;
-	root.is_end_of_word = 0;
-	root.freq = 0;
+	trie *root = malloc(sizeof(trie));
+	root->is_end_of_word = 0;
+	root->freq = 0;
 
 	for (int i = 0; i < ALPHABET_SIZE; i++)
-		root.subtrie[i] = NULL;
+		root->subtrie[i] = NULL;
 
 	char command[COMMAND_LEN];
 	scanf("%s", command);
 
 	while (TRUE) {
-		// printf("command ind: %d\n", hash_command(command));
 		switch (hash_command(command)) {
 		case 0:
-			command_insert(&root);
+			command_insert(root);
 			break;
 		case 1:
-			command_load(&root);
+			command_load(root);
 			break;
 		case 2:
-			command_remove(&root);
+			command_remove(root);
 			break;
 		case 3:
-			command_autocorrect(&root);
+			command_autocorrect(root);
 			break;
 		case 4:
-			command_autocomplete(&root);
+			command_autocomplete(root);
 			break;
 		case 5:
-			command_exit(&root);
+			command_exit(root);
 			return 0;
 		default:
 			// fprintf(stderr, "Invalid command\n");
@@ -404,6 +425,6 @@ int main(void)
 		scanf("%s", command);
 	}
 
-	command_exit(&root);
+	command_exit(root);
 	return 0;
 }
