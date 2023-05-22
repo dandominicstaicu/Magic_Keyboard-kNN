@@ -1,0 +1,32 @@
+==23586== Memcheck, a memory error detector
+==23586== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==23586== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==23586== Command: ./mk
+==23586== Parent PID: 23090
+==23586== 
+==23586== 
+==23586== HEAP SUMMARY:
+==23586==     in use at exit: 9,440,712 bytes in 43,707 blocks
+==23586==   total heap usage: 43,724 allocs, 17 frees, 9,460,416 bytes allocated
+==23586== 
+==23586== 9,435,096 bytes in 43,681 blocks are indirectly lost in loss record 1 of 2
+==23586==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23586==    by 0x10941A: trie_insert (mk.c:45)
+==23586==    by 0x109A31: command_load (mk.c:161)
+==23586==    by 0x109D11: main (mk.c:254)
+==23586== 
+==23586== 9,440,712 (5,616 direct, 9,435,096 indirect) bytes in 26 blocks are definitely lost in loss record 2 of 2
+==23586==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==23586==    by 0x10941A: trie_insert (mk.c:45)
+==23586==    by 0x109A31: command_load (mk.c:161)
+==23586==    by 0x109D11: main (mk.c:254)
+==23586== 
+==23586== LEAK SUMMARY:
+==23586==    definitely lost: 5,616 bytes in 26 blocks
+==23586==    indirectly lost: 9,435,096 bytes in 43,681 blocks
+==23586==      possibly lost: 0 bytes in 0 blocks
+==23586==    still reachable: 0 bytes in 0 blocks
+==23586==         suppressed: 0 bytes in 0 blocks
+==23586== 
+==23586== For lists of detected and suppressed errors, rerun with: -s
+==23586== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)

@@ -16,17 +16,17 @@ struct trie {
 
 int hash_command(char *command)
 {
-	if (strcmp(command, "INSERT"))
+	if (strcmp(command, "INSERT") == 0)
 		return 0;
-	else if (strcmp(command, "LOAD"))
+	else if (strcmp(command, "LOAD") == 0)
 		return 1;
-	else if (strcmp(command, "REMOVE"))
+	else if (strcmp(command, "REMOVE") == 0)
 		return 2;
-	else if (strcmp(command, "AUTOCORRECT"))
+	else if (strcmp(command, "AUTOCORRECT")== 0)
 		return 3;
-	else if (strcmp(command, "AUTOCOMPLETE"))
+	else if (strcmp(command, "AUTOCOMPLETE") == 0)
 		return 4;
-	else if (strcmp(command, "EXIT"))
+	else if (strcmp(command, "EXIT") == 0)
 		return 5;
 
 	return -1;
@@ -106,35 +106,32 @@ void trie_remove(trie *root, char *word)
 	}
 }
 
-void traverse_with_limit(trie *node, char *word, char *cur_word, int index, int k, int cur_dist)
-{
-	// if we reached the end of the word, check if the current word is valid
-	if (cur_dist > k)
-		return;
-	
-	// if we reached the end of the word, check if the current word is valid
-	if (node->is_end_of_word && cur_dist <= k)
-		printf("%s\n", cur_word);
+void traverse_with_limit(trie* node, char* word, char* cur_word, int index, int k, int cur_dist) {
+    if (index > strlen(word))
+        return;
 
-	
-	for (int i = 0; i < ALPHABET_SIZE; ++i) {
-		if (node->subtrie[i] != NULL) {
-			char next_word[WORD_LEN];
-			strncpy(next_word, cur_word, WORD_LEN);
-			next_word[index] = i + 'a';
-			next_word[index + 1] = '\0';
+    if (cur_dist > k)
+        return;
 
-			int next_dist = cur_dist;
-			if (index < strlen(word)) {
-				if (word[index] != next_word[index])
-					next_dist++;
-			} else {
-				next_dist++;
-			}
+    if (index == strlen(word) && node->is_end_of_word && cur_dist <= k)
+        printf("%s\n", cur_word);
 
-			traverse_with_limit(node->subtrie[i], word, next_word, index + 1, k, next_dist);
-		}
-	}
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
+        if (node->subtrie[i] != NULL) {
+            char next_word[WORD_LEN];
+            strncpy(next_word, cur_word, WORD_LEN);
+            next_word[index] = 'a' + i;
+            next_word[index + 1] = '\0';
+
+            int next_dist = cur_dist;
+            if (index < strlen(word)) {
+                if (word[index] != next_word[index])
+                    next_dist += 1;
+            }
+
+            traverse_with_limit(node->subtrie[i], word, next_word, index + 1, k, next_dist);
+        }
+    }
 }
 
 // save the word and increment it's frequency
@@ -248,6 +245,7 @@ int main(void)
 	scanf("%s", command);
 
 	while (TRUE) {
+		// printf("command ind: %d\n", hash_command(command));
 		switch (hash_command(command)) {
 		case 0:
 			command_insert(&root);
