@@ -14,6 +14,97 @@ struct trie {
 	int freq;
 };
 
+typedef struct trie_node_pair trie_node_pair;
+struct trie_node_pair {
+	trie *node;
+	int index;
+};
+
+trie_node_pair prefix_node(trie *root, char *prefix)
+{
+	int len = strlen(prefix);
+	trie *node = root;
+
+	for (int level = 0; level < len; ++level) {
+		if (!node->subtrie[prefix[level] - 'a'])
+			return (trie_node_pair) {NULL, 0};
+
+		node = node->subtrie[prefix[level] - 'a'];
+	}
+
+	return (trie_node_pair){node, len};
+}
+
+void traverse_lex(trie *node, char *prefix, char *cur_word, int index)
+{
+	if (node->is_end_of_word) {
+		printf("%s\n", cur_word);
+		return;
+	}
+
+	for (int i = 0; i < ALPHABET_SIZE; ++i) {
+		if (node->subtrie[i] != NULL) {
+			char next_word[WORD_LEN];
+			strncpy(next_word, cur_word, WORD_LEN);
+
+			next_word[index] = 'a' + i;
+			next_word[index + 1] = '\0';
+
+			traverse_lex(node->subtrie[i], prefix, next_word, index + 1);
+			return;
+		}
+	}
+}
+
+void traverse_short(trie *node, char *cur_word, int index)
+{
+	trie_node_pair queue[WORD_LEN * ALPHABET_SIZE];
+	int front = 0, back = 0;
+
+
+	queue[back++] = (trie_node_pair){node, index};
+
+	while (front != back) {
+		trie_node_pair pair = queue[front++];
+		trie *current_node = pair.node;
+		int current_index = pair.index;
+
+		if (current_node->is_end_of_word) {
+			cur_word[current_index] = '\0';
+			printf("%s\n", cur_word);
+			return;
+		}
+
+		for (int i = 0; i < ALPHABET_SIZE; ++i) {
+			if (current_node->subtrie[i] != NULL) {
+				char next_word[WORD_LEN];
+				strncpy(next_word, cur_word, WORD_LEN);
+				next_word[current_index] = 'a' + i;
+
+				queue[back++] = (trie_node_pair){current_node->subtrie[i], current_index + 1};
+			}
+		}
+	}
+}
+
+void traverse_freq(trie *node, char *prefix, char *cur_word, int index, int *max_freq, char *max_word) {
+    if (node->is_end_of_word && node->freq > *max_freq) {
+        *max_freq = node->freq;
+        strncpy(max_word, cur_word, WORD_LEN);
+    }
+
+    for (int i = 0; i < ALPHABET_SIZE; i++) {
+        if (node->subtrie[i] != NULL) {
+            char next_word[WORD_LEN];
+            strncpy(next_word, cur_word, WORD_LEN);
+            next_word[index] = 'a' + i;
+            next_word[index + 1] = '\0';
+
+            traverse_freq(node->subtrie[i], prefix, next_word, index + 1, max_freq, max_word);
+        }
+    }
+}
+
 int hash_command(char *command)
 {
 	if (strcmp(command, "INSERT") == 0)
@@ -44,14 +135,16 @@ void trie_insert(trie *node_trie, char *word)
 		if (current	== NULL) {
 			current = (trie *)malloc(sizeof(trie));
 			current->is_end_of_word = 0;
+			current->freq = 0;
 
 			for (int j = 0; j < ALPHABET_SIZE; ++j)
 				current->subtrie[j] = NULL;
 		}
 
-		if (i + 1 == len)
+		if (i + 1 == len){
 			current->is_end_of_word = 1;
-
+			current->freq++;
+		}
 		node_trie->subtrie[word[i] % 97] = current;
 		node_trie = node_trie->subtrie[word[i] % 97];
 	}
@@ -107,13 +200,14 @@ void trie_remove(trie *root, char *word)
 }
 
 void traverse_with_limit(trie* node, char* word, char* cur_word, int index, int k, int cur_dist) {
-    if (index > strlen(word))
+    int word_len = strlen(word);
+	if (index > word_len)
         return;
 
     if (cur_dist > k)
         return;
 
-    if (index == strlen(word) && node->is_end_of_word && cur_dist <= k)
+    if (index == word_len && node->is_end_of_word && cur_dist <= k)
         printf("%s\n", cur_word);
 
     for (int i = 0; i < ALPHABET_SIZE; i++) {
@@ -124,7 +218,7 @@ void traverse_with_limit(trie* node, char* word, char* cur_word, int index, int 
             next_word[index + 1] = '\0';
 
             int next_dist = cur_dist;
-            if (index < strlen(word)) {
+            if (index < word_len) {
                 if (word[index] != next_word[index])
                     next_dist += 1;
             }
@@ -195,28 +289,57 @@ void command_autocomplete(trie *root)
 	int crit = 0;
 	scanf("%d", &crit);
 
+	trie_node_pair pair = prefix_node(root, prefix);
+
+	if (pair.node == NULL) {
+		fprintf(stderr, "No words found\n");
+		return;
+	}
+
+	char cur_word[WORD_LEN];
+	strncpy(cur_word, prefix, WORD_LEN);
+
 	switch (crit){
 	// the smalles lexicographical word with the given prefix 
-	case 1:
-		//TODO
+	case 1: {
+		traverse_lex(pair.node, prefix, cur_word, pair.index);
 		break;
-	
+	}
 	// the shortest word with the given prefix
-	case 2:
-		//TODO
+	case 2: {
+		traverse_short(pair.node, cur_word, pair.index);
 		break;
-	
+	}
 	// the most frequently used word with the given prefix (if tie, the smallest
 	// lexicographical word is returned)
-	case 3:
-		//TODO
-		break;
+	case 3: {
+		int max_freq = -1;
+		char max_word[WORD_LEN];
+		traverse_freq(pair.node, prefix, cur_word, pair.index, &max_freq, max_word);
 
-	// all of the above
-	case 0:
-		//TODO
+		if (max_freq != -1)
+			printf("%s\n", max_word);
+		else
+			printf("No words found\n");
+
 		break;
-	
+	}
+	// all of the above
+	case 0: {
+		traverse_lex(pair.node, prefix, cur_word, pair.index);
+        traverse_short(pair.node, cur_word, pair.index);
+        
+		int max_freq = -1;
+        char max_word[WORD_LEN];
+        traverse_freq(pair.node, prefix, cur_word, pair.index, &max_freq, max_word);
+        
+		if (max_freq != -1) 
+			printf("%s\n", max_word);
+        else 
+			printf("No words found\n");
+
+		break;
+	}
 	default:
 		fprintf(stderr, "Invalid criterion\n");
 		break;
@@ -237,6 +360,7 @@ int main(void)
 {
 	trie root;
 	root.is_end_of_word = 0;
+	root.freq = 0;
 
 	for (int i = 0; i < ALPHABET_SIZE; i++)
 		root.subtrie[i] = NULL;
