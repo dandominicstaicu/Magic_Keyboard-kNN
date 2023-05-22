@@ -1,62 +1,158 @@
 ./mk.c:12: CHECK:SPACING: spaces preferred around that '*' (ctx:WxV)
-./mk.c:25: ERROR:SPACING: spaces required around that '==' (ctx:VxW)
-./mk.c:44: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!current"
-./mk.c:71: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:82: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node"
-./mk.c:90: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
-./mk.c:96: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "parent"
-./mk.c:100: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:103: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "parent->subtrie[i]"
-./mk.c:109: CHECK:LONG_LINE: line length of 98 exceeds 80 columns
-./mk.c:109: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
-./mk.c:109: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
-./mk.c:109: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
-./mk.c:109: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+./mk.c:46: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
+./mk.c:59: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+./mk.c:60: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:61: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:62: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:64: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:65: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:66: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:68: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:69: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:69: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:70: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:70: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:71: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:71: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:73: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:73: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:74: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:74: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:76: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:76: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:77: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:77: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:78: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:78: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:79: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:79: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:81: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:81: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:82: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:82: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:82: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "current_node->subtrie[i]"
+./mk.c:83: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:83: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:84: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:84: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:85: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:85: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:86: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:86: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:88: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
+./mk.c:88: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:88: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:89: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:89: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:90: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:90: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:91: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:91: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:92: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:92: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:93: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:96: CHECK:LINE_SPACING: Please don't use multiple blank lines
+./mk.c:97: CHECK:LONG_LINE: line length of 104 exceeds 80 columns
+./mk.c:97: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+./mk.c:98: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:99: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:99: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:100: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:100: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:101: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:103: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:104: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:104: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:104: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
+./mk.c:105: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:105: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:106: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:106: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:107: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:107: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:108: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:108: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:110: CHECK:LONG_LINE: line length of 94 exceeds 80 columns
+./mk.c:110: ERROR:CODE_INDENT: code indent should use tabs where possible
 ./mk.c:110: WARNING:LEADING_SPACE: please, no spaces at the start of a line
 ./mk.c:111: ERROR:CODE_INDENT: code indent should use tabs where possible
 ./mk.c:111: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:113: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:114: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:114: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:116: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:117: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:117: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:119: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:120: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:120: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:120: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
-./mk.c:121: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:121: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:122: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:122: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:123: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:123: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:124: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:124: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:126: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:126: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:127: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:127: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:128: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:128: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:129: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:129: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:130: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:130: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:132: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
-./mk.c:132: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:132: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:133: ERROR:CODE_INDENT: code indent should use tabs where possible
-./mk.c:133: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:134: WARNING:LEADING_SPACE: please, no spaces at the start of a line
-./mk.c:154: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!file"
-./mk.c:198: ERROR:SPACING: space required before the open brace '{'
-./mk.c:199: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:203: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:208: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:219: ERROR:TRAILING_WHITESPACE: trailing whitespace
-./mk.c:228: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
-./mk.c:278: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
+./mk.c:112: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:123: ERROR:SPACING: spaces required around that '==' (ctx:VxW)
+./mk.c:142: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!current"
+./mk.c:151: ERROR:SPACING: space required before the open brace '{'
+./mk.c:171: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:182: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node"
+./mk.c:190: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
+./mk.c:196: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "parent"
+./mk.c:200: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:203: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "parent->subtrie[i]"
+./mk.c:209: CHECK:LONG_LINE: line length of 98 exceeds 80 columns
+./mk.c:209: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
+./mk.c:209: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
+./mk.c:209: ERROR:POINTER_LOCATION: "foo* bar" should be "foo *bar"
+./mk.c:209: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line
+./mk.c:210: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:212: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:212: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:214: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:215: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:215: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:217: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:218: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:218: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:220: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:221: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:221: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:221: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "node->subtrie[i]"
+./mk.c:222: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:222: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:223: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:223: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:224: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:224: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:225: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:225: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:227: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:227: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:228: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:228: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:229: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:229: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:230: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:230: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:231: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:231: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:233: CHECK:LONG_LINE: line length of 92 exceeds 80 columns
+./mk.c:233: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:233: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:234: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:234: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:235: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:255: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!file"
+./mk.c:301: CHECK:COMPARISON_TO_NULL: Comparison to NULL could be written "!pair.node"
+./mk.c:309: ERROR:SPACING: space required before the open brace '{'
+./mk.c:310: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:325: CHECK:LONG_LINE: line length of 84 exceeds 80 columns
+./mk.c:337: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:337: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:338: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:338: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:338: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:340: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:340: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:341: CHECK:LONG_LINE: line length of 84 exceeds 80 columns
+./mk.c:341: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:341: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:342: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:342: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:342: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:343: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:345: ERROR:TRAILING_WHITESPACE: trailing whitespace
+./mk.c:345: ERROR:CODE_INDENT: code indent should use tabs where possible
+./mk.c:345: WARNING:LEADING_SPACE: please, no spaces at the start of a line
+./mk.c:358: CHECK:BRACES: Blank lines aren't necessary before a close brace '}'
+./mk.c:409: WARNING:MISSING_EOF_NEWLINE: adding a line without newline at end of file
 ./trie.c:2: CHECK:LINE_SPACING: Please don't use multiple blank lines
 ./trie.c:3: ERROR:FUNCTION_WITHOUT_ARGS: Bad function definition - TrieNode *get_node() should probably be TrieNode *get_node(void)
 ./trie.c:3: ERROR:OPEN_BRACE: open brace '{' following function definitions go on the next line

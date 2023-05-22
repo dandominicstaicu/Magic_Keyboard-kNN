@@ -56,36 +56,43 @@ void traverse_lex(trie *node, char *prefix, char *cur_word, int index)
 	}
 }
 
-void traverse_short(trie *node, char *cur_word, int index)
-{
-	trie_node_pair queue[WORD_LEN * ALPHABET_SIZE];
-	int front = 0, back = 0;
+void traverse_short(trie *node, char *prefix, int index) {
+    trie_node_pair queue[WORD_LEN * ALPHABET_SIZE];
+    char queue_words[WORD_LEN * ALPHABET_SIZE][WORD_LEN];
+    int front = 0, back = 0;
 
+    queue[back] = (trie_node_pair){node, index};
+    strncpy(queue_words[back], prefix, WORD_LEN);
+    back++;
 
-	queue[back++] = (trie_node_pair){node, index};
+    while (front != back) {
+        trie_node_pair pair = queue[front];
+        char *cur_word = queue_words[front];
+        front++;
 
-	while (front != back) {
-		trie_node_pair pair = queue[front++];
-		trie *current_node = pair.node;
-		int current_index = pair.index;
+        trie *current_node = pair.node;
+        int current_index = pair.index;
 
-		if (current_node->is_end_of_word) {
-			cur_word[current_index] = '\0';
-			printf("%s\n", cur_word);
-			return;
-		}
+        if (current_node->is_end_of_word) {
+            printf("%s\n", cur_word);
+            return;
+        }
 
-		for (int i = 0; i < ALPHABET_SIZE; ++i) {
-			if (current_node->subtrie[i] != NULL) {
-				char next_word[WORD_LEN];
-				strncpy(next_word, cur_word, WORD_LEN);
-				next_word[current_index] = 'a' + i;
+        for (int i = 0; i < ALPHABET_SIZE; ++i) {
+            if (current_node->subtrie[i] != NULL) {
+                char next_word[WORD_LEN];
+                strncpy(next_word, cur_word, WORD_LEN);
+                next_word[current_index] = 'a' + i;
+                next_word[current_index + 1] = '\0';
 
-				queue[back++] = (trie_node_pair){current_node->subtrie[i], current_index + 1};
-			}
-		}
-	}
+                queue[back] = (trie_node_pair){current_node->subtrie[i], current_index + 1};
+                strncpy(queue_words[back], next_word, WORD_LEN);
+                back++;
+            }
+        }
+    }
 }
+
 
 void traverse_freq(trie *node, char *prefix, char *cur_word, int index, int *max_freq, char *max_word) {
     if (node->is_end_of_word && node->freq > *max_freq) {
