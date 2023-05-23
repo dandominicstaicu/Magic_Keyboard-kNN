@@ -14,7 +14,7 @@ mk: mk.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 kNN: kNN.o
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c -o $@ $<
