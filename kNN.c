@@ -237,7 +237,7 @@ void range_search(kd_node *root, int *start, int *end, int k, int depth)
 		range_search(root->left, start, end, k, depth + 1);
 	}
 
-	if (start[cd] >= root->point[cd]) {
+	if (end[cd] >= root->point[cd]) {
 		range_search(root->right, start, end, k, depth + 1);
 	}
 }
