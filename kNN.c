@@ -21,35 +21,35 @@
 	} while (0)
 
 // node of the kd tree
-typedef struct kd_node kd_node;
-struct kd_node {
+typedef struct kd_node_t kd_node_t;
+struct kd_node_t {
 	int *point;
-	kd_node *left;
-	kd_node *right;
+	kd_node_t *left;
+	kd_node_t *right;
 };
 
 // kd tree
 typedef struct kd_tree kd_tree;
 struct kd_tree {
-	kd_node *root;
+	kd_node_t *root;
 };
 
 // build the kd tree
-kd_tree *create_tree()
+kd_tree *create_tree(void)
 {
 	kd_tree *tree = (kd_tree *)malloc(sizeof(kd_tree));
 	DIE(!tree, "malloc failed for tree in create_tree()");
 
 	tree->root = NULL;
-	
+
 	return tree;
 }
 
 // create a node for the kd tree
-kd_node *create_node(int *point, int k)
+kd_node_t *create_node(int *point, int k)
 {
 	// allocate memory for the new node
-	kd_node *new_node = (kd_node *)malloc(sizeof(kd_node));
+	kd_node_t *new_node = (kd_node_t *)malloc(sizeof(kd_node_t));
 	DIE(!new_node, "malloc failed for new_node in create_node()");
 
 	// allocate memory for the point array
@@ -57,9 +57,8 @@ kd_node *create_node(int *point, int k)
 	DIE(!new_node->point, "malloc failed for new_node->point in create_node()");
 
 	// Copy the elements from the point array
-	for (int i = 0; i < k; ++i) {
+	for (int i = 0; i < k; ++i)
 		new_node->point[i] = point[i];
-	}
 
 	// set the left and right children to NULL
 	new_node->left = NULL;
@@ -69,7 +68,7 @@ kd_node *create_node(int *point, int k)
 }
 
 // insert a node into the kd tree
-kd_node *insert_node(kd_node *root, int *point, int k, int depth)
+kd_node_t *insert_node(kd_node_t *root, int *point, int k, int depth)
 {
 	if (!root)
 		return create_node(point, k);
@@ -77,12 +76,12 @@ kd_node *insert_node(kd_node *root, int *point, int k, int depth)
 	// calculate the current dimension
 	int cd = depth % k;
 
-	// insert into the left subtree if the current point is less than the root point
+	// insert into the left subtree if the current point is less than the root
 	if (point[cd] < root->point[cd]) {
-    	root->left = insert_node(root->left, point, k, depth + 1);
+		root->left = insert_node(root->left, point, k, depth + 1);
 	} else {
-		// insert into the right subtree if the current point is greater than the root point
-   		root->right = insert_node(root->right, point, k, depth + 1);
+		// insert into the right subtree if the current is greater than the root
+		root->right = insert_node(root->right, point, k, depth + 1);
 	}
 
 	return root;
@@ -104,7 +103,8 @@ double distance(int *point1, int *point2, int k)
 	return sqrt(dist);
 }
 
-void nearest_neighbor_search(kd_node *root, int *target, int k, int depth, kd_node **best, double *best_dist)
+void nearest_neighbor_search(kd_node_t *root, int *target, int k, int depth,
+							 kd_node_t **best, double *best_dist)
 {
 	if (!root)
 		return;
@@ -116,8 +116,8 @@ void nearest_neighbor_search(kd_node *root, int *target, int k, int depth, kd_no
 	// calculate the difference between the current node and the target
 	int diff = target[cd] - root->point[cd];
 
-	kd_node *closer_node = diff < 0 ? root->left : root->right;
-	kd_node *further_node = diff < 0 ? root->right : root->left;
+	kd_node_t *closer_node = diff < 0 ? root->left : root->right;
+	kd_node_t *further_node = diff < 0 ? root->right : root->left;
 
 	// search the subtree that is closer to the target
 	nearest_neighbor_search(closer_node, target, k, depth + 1, best, best_dist);
@@ -128,10 +128,11 @@ void nearest_neighbor_search(kd_node *root, int *target, int k, int depth, kd_no
 		*best = root;
 	}
 
-	// if the distance between the current node and the target is less than the best distance
+	// if the dist between the current and the target is less than the best dist
 	if (abs(diff) < *best_dist) {
 		// search the subtree that is further from the target
-		nearest_neighbor_search(further_node, target, k, depth + 1, best, best_dist);
+		nearest_neighbor_search(further_node, target, k, depth + 1,
+								best, best_dist);
 		if (dist < *best_dist) {
 			*best_dist = dist;
 			*best = root;
@@ -140,9 +141,9 @@ void nearest_neighbor_search(kd_node *root, int *target, int k, int depth, kd_no
 }
 
 // find the nearest neighbor
-kd_node *nearest_neighbor(kd_node *root, int *point, int k)
+kd_node_t *nearest_neighbor(kd_node_t *root, int *point, int k)
 {
-	kd_node *best = NULL; // set the best node to NULL
+	kd_node_t *best = NULL; // set the best node to NULL
 	double best_dist = INFINITY; // set the best distance to infinity
 
 	nearest_neighbor_search(root, point, k, 0, &best, &best_dist);
@@ -151,9 +152,9 @@ kd_node *nearest_neighbor(kd_node *root, int *point, int k)
 }
 
 // free the tree with all its nodes
-void free_tree(kd_node *node)
+void free_tree(kd_node_t *node)
 {
-	if (node != NULL) {
+	if (node) {
 		free_tree(node->left); // free the left subtree
 		free_tree(node->right); // free the right subtree
 
@@ -183,31 +184,25 @@ void command_load(kd_tree *tree, int *n, int *k)
 	scanf("%s", filename);
 
 	FILE *file = fopen(filename, "rt");
-	if (file == NULL) {
-		fprintf(stderr, "Could not open file\n");
-		return;
-	}
+	DIE(!file, "fopen failed for file in command_load()");
 
 	*n = 0;
 	*k = 0;
 
 	fscanf(file, "%d %d", n, k);
 
-	int *point = (int *)malloc(sizeof(int) * *k);
+	int *point = (int *)malloc(sizeof(int) * (*k));
 	DIE(!point, "malloc failed for point in command_load()");
 
 	// read from the file and insert into the tree
 	for (int i = 0; i < *n; ++i) {
-		
-		for (int j = 0; j < *k; ++j) {
+		for (int j = 0; j < *k; ++j)
 			fscanf(file, "%d", &point[j]);
-		}
 
 		// insert the point into the tree
 		tree->root = insert_node(tree->root, point, *k, 0);
-
-		
 	}
+
 	free(point);
 	fclose(file);
 }
@@ -224,23 +219,22 @@ void command_nn(kd_tree *tree, int k)
 		scanf("%d", &point[i]);
 	}
 
-	kd_node *neighbor = nearest_neighbor(tree->root, point, k);
+	kd_node_t *neighbor = nearest_neighbor(tree->root, point, k);
 
-	for (int i = 0; i < k; ++i) {
+	for (int i = 0; i < k; ++i)
 		printf("%d ", neighbor->point[i]);
-	}
 	printf("\n");
 
 	free(point);
 }
 
-void range_search(kd_node *root, int *start, int *end, int k, int depth)
+void range_search(kd_node_t *root, int *start, int *end, int k, int depth)
 {
 	if (!root)
 		return;
 
 	int cd = depth % k;
-	
+
 	int in_range = TRUE;
 	for (int i = 0; i < k; ++i) {
 		if (root->point[i] < start[i] || root->point[i] > end[i]) {
@@ -250,19 +244,16 @@ void range_search(kd_node *root, int *start, int *end, int k, int depth)
 	}
 
 	if (in_range) {
-		for (int i = 0; i < k; ++i) {
+		for (int i = 0; i < k; ++i)
 			printf("%d ", root->point[i]);
-		}
 		printf("\n");
 	}
 
-	if (root->left && start[cd] <= root->point[cd]) {
+	if (root->left && start[cd] <= root->point[cd])
 		range_search(root->left, start, end, k, depth + 1);
-	}
 
-	if (root->right && end[cd] >= root->point[cd]) {
+	if (root->right && end[cd] >= root->point[cd])
 		range_search(root->right, start, end, k, depth + 1);
-	}
 }
 
 void command_rs(kd_tree *tree, int k)
@@ -275,7 +266,7 @@ void command_rs(kd_tree *tree, int k)
 
 	for (int i = 0; i < k; ++i) {
 		// read input of RS command
-		// RS <start_1> <end_1> <start_2> <end_2> ... <start_k> <end_k> 
+		// RS <start_1> <end_1> <start_2> <end_2> ... <start_k> <end_k>
 		scanf("%d %d", &start[i], &end[i]);
 	}
 
@@ -301,8 +292,7 @@ int main(void)
 	int n = 0, k = 0;
 
 	while (TRUE) {
-		switch (hash_command(command))
-		{
+		switch (hash_command(command)) {
 		case 0:
 			command_load(tree, &n, &k);
 			break;
@@ -321,8 +311,6 @@ int main(void)
 		}
 		scanf("%s", command);
 	}
-
-
 
 	command_exit(tree);
 	return 0;
