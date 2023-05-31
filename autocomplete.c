@@ -173,5 +173,3 @@ void command_autocomplete(trie_t *root)
 	//if word doesn't exist, print "No words found"
 	// in case of criterion 0, "No words found" can be printed multiple times
 }
-
-

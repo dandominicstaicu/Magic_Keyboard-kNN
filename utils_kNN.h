@@ -1,5 +1,5 @@
-#ifndef _UTILS_kNN_H_
-#define _UTILS_kNN_H_
+#ifndef _UTILS_KNN_H_
+#define _UTILS_KNN_H_
 
 #include <stdio.h>
 #include <string.h>

@@ -1,9 +1,9 @@
-#ifndef _kNN_operations_H_
-#define _kNN_operations_H_
+#ifndef _KNN_OPERATIONS_H_
+#define _KNN_OPERATIONS_H_
 
 #include "utils_kNN.h"
 
-kd_tree *create_tree(void);
+kd_tree * create_tree(void);
 
 kd_node_t *create_node(int *point, int k);
 

@@ -3,7 +3,6 @@
 #include "autocomplete.h"
 #include "autocorrect.h"
 
-
 int main(void)
 {
 	trie_t *root = malloc(sizeof(trie_t));
